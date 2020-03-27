@@ -40,7 +40,7 @@ const RefetchProvider: React.FunctionComponent<RefetchProviderInterface> = ({
       if (process.env.NODE_ENV === 'dev') {
         console.warn(`${id} is not registered in refetch subscriptions`) // eslint-disable-line
       }
-      return
+      return new Promise((resolve) => resolve())
     }
   }, [])
 
