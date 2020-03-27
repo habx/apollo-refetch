@@ -1,10 +1,10 @@
-# Utils for refetch apollo queries
+# Utils for apollo queries refetching
 
 ## Motivation
 
-Display lists with apollo client is really common but it can be very
-hard to update theses list with new data. We wanted to be able to
-display data that is always server-sync even if the list has parameters
+Displaying lists with apollo client is really common but it can be very
+hard to update theses lists with new data or retrieve data from it. We wanted to be able to
+display data that is always server-sync even if the list has parameters.
 
 ## Install
 
