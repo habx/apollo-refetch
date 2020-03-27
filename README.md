@@ -1,4 +1,4 @@
-# Utils for refetch apollo queries
+# Utils for apollo queries refetching
 
 ## Motivation
 
