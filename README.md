@@ -1,5 +1,11 @@
 # Utils for apollo queries refetching
 
+[![CircleCI](https://img.shields.io/circleci/build/github/habx/apollo-refetch)](https://app.circleci.com/pipelines/github/habx/apollo-refetch)
+[![Version](https://img.shields.io/npm/v/@habx/apollo-refetch)](https://www.npmjs.com/package/@habx/apollo-refetch)
+[![Size](https://img.shields.io/bundlephobia/min/@habx/apollo-refetch)](https://bundlephobia.com/result?p=@habx/apollo-refetch)
+[![License](https://img.shields.io/github/license/habx/apollo-refetch)](/LICENSE)
+
+
 ## Motivation
 
 Displaying lists with apollo client is really common but it can be very
