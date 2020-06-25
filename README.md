@@ -21,9 +21,9 @@ npm i @habx/apollo-refetch
 Wrap your App with the context provider 
 
 ```typescript jsx
-<RefetchProvider>
-  {children}
-</RefetchProvider>
+  <RefetchProvider>
+    {children}
+  </RefetchProvider>
 ```
 
 ## How to use
