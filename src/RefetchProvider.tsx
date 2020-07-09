@@ -1,26 +1,28 @@
 import { ApolloQueryResult } from 'apollo-client'
 import * as React from 'react'
 
+import { QuerySubscriber } from './types'
 import RefetchContext from './useRefetch.context'
 
 type Subscriptions = {
-  [id: string]: {
+  [category: string]: {
     [subscriptionId: string]: () => Promise<ApolloQueryResult<any>>
   }
 }
-const RefetchProvider: React.FunctionComponent<RefetchProviderInterface> = ({
-  children,
-}) => {
+const RefetchProvider: React.FunctionComponent<{}> = ({ children }) => {
   const subscriptions = React.useRef<Subscriptions>({})
 
-  const subscribeQuery = React.useCallback(
-    (id: string, refetch: () => Promise<ApolloQueryResult<any>>) => {
-      const subscriptionId = Math.random()
-      if (!subscriptions.current[id]) {
-        subscriptions.current[id] = {}
+  const subscribeQuery = React.useCallback<QuerySubscriber>(
+    ({ id, category, refetch, options }) => {
+      if (!subscriptions.current[category]) {
+        subscriptions.current[category] = {}
       }
-      subscriptions.current[id][subscriptionId] = refetch
-      return () => delete subscriptions.current[id][subscriptionId]
+
+      if (!options?.skip) {
+        subscriptions.current[category][id] = refetch
+      }
+
+      return () => delete subscriptions.current[category][id]
     },
     []
   )
@@ -29,16 +31,16 @@ const RefetchProvider: React.FunctionComponent<RefetchProviderInterface> = ({
     subscriptions.current = {}
   }, [])
 
-  const refetch = React.useCallback((id: string) => {
+  const refetch = React.useCallback((category: string) => {
     try {
       return Promise.all(
-        Object.values(subscriptions.current[id]).map((subscriptonRefetch) =>
-          (subscriptonRefetch as () => Promise<ApolloQueryResult<any>>)()
-        )
+        Object.values(
+          subscriptions.current[category]
+        ).map((subscriptonRefetch) => subscriptonRefetch())
       )
     } catch (e) {
       if (process.env.NODE_ENV === 'dev') {
-        console.warn(`${id} is not registered in refetch subscriptions`) // eslint-disable-line
+        console.warn(`${category} is not registered in refetch subscriptions`) // eslint-disable-line
       }
       return new Promise((resolve) => resolve())
     }
@@ -56,15 +58,16 @@ const RefetchProvider: React.FunctionComponent<RefetchProviderInterface> = ({
     []
   )
 
+  const context = React.useMemo(
+    () => ({ subscribeQuery, reset, refetch, refetchAll }),
+    [refetch, refetchAll, reset, subscribeQuery]
+  )
+
   return (
-    <RefetchContext.Provider
-      value={{ subscribeQuery, reset, refetch, refetchAll }}
-    >
+    <RefetchContext.Provider value={context}>
       {children}
     </RefetchContext.Provider>
   )
 }
-
-interface RefetchProviderInterface {}
 
 export default RefetchProvider
