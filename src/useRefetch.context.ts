@@ -1,11 +1,9 @@
-import { ApolloQueryResult } from 'apollo-client'
 import * as React from 'react'
 
+import { QuerySubscriber } from './types'
+
 export type RefetchInterface = {
-  subscribeQuery: (
-    id: string,
-    refetch: () => Promise<ApolloQueryResult<any>>
-  ) => () => void
+  subscribeQuery: QuerySubscriber
   refetch: (id: string) => Promise<any>
   refetchAll: () => Promise<any>
   reset: () => void
