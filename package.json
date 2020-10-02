@@ -23,14 +23,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/habx/lib-template.git"
+    "url": "git+https://github.com/habx/apollo-refetch.git"
   },
   "author": "HABX Front End Team",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/habx/lib-template/issues"
+    "url": "https://github.com/habx/apollo-refetch/issues"
   },
-  "homepage": "https://github.com/habx/lib-template#readme",
+  "homepage": "https://github.com/habx/apollo-refetch#readme",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
