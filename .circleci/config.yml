@@ -140,11 +140,11 @@ workflows:
           filters:
             <<: *filters_allow_tags
             <<: *filters_ignore_branches
-      # - github-pkg-publish:
-      #     context: ts-lib-client-public
-      #     requires:
-      #       - lint
-      #       - build
-      #     filters:
-      #       <<: *filters_allow_tags
-      #       <<: *filters_ignore_branches
+      - github-pkg-publish:
+          context: ts-lib-client-public
+          requires:
+            - lint
+            - build
+          filters:
+            <<: *filters_allow_tags
+            <<: *filters_ignore_branches
