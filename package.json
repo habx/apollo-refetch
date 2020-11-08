@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@habx/eslint-config-client": "^5.3.1",
-    "@types/react": "^16.9.26",
+    "@types/react": "^16.9.56",
     "apollo-client": "^2.6.10",
     "bili": "^5.0.2",
     "husky": "^4.3.0",
