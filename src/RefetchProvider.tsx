@@ -42,7 +42,7 @@ const RefetchProvider: React.FunctionComponent<{}> = ({ children }) => {
       if (process.env.NODE_ENV === 'dev') {
         console.warn(`${category} is not registered in refetch subscriptions`) // eslint-disable-line
       }
-      return new Promise((resolve) => resolve())
+      return new Promise((resolve) => resolve(undefined))
     }
   }, [])
 
