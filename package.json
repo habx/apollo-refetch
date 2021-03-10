@@ -41,7 +41,6 @@
       "eslint --fix"
     ]
   },
-  "dependencies": {},
   "peerDependencies": {
     "react": "^17.0.1"
   },
