@@ -41,12 +41,11 @@
       "eslint --fix"
     ]
   },
-  "dependencies": {},
   "peerDependencies": {
     "react": "^17.0.1"
   },
   "devDependencies": {
-    "@habx/config-ci-front": "^0.6.0",
+    "@habx/config-ci-front": "^0.7.0",
     "@habx/eslint-config-client": "^6.0.0",
     "@types/react": "^17.0.3",
     "apollo-client": "^2.6.10",
