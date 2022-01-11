@@ -2,7 +2,7 @@ import { ApolloQueryResult } from 'apollo-client'
 import * as React from 'react'
 
 import { QuerySubscriber } from './types'
-import RefetchContext from './useRefetch.context'
+import { RefetchContext } from './useRefetch.context'
 
 interface Subscriptions {
   [category: string | number | symbol]: {
@@ -10,7 +10,7 @@ interface Subscriptions {
   }
 }
 
-const RefetchProvider: React.FunctionComponent = ({ children }) => {
+export const RefetchProvider: React.FunctionComponent = ({ children }) => {
   const subscriptions = React.useRef<Subscriptions>({})
 
   const subscribeQuery = React.useCallback<QuerySubscriber>(
@@ -70,5 +70,3 @@ const RefetchProvider: React.FunctionComponent = ({ children }) => {
     </RefetchContext.Provider>
   )
 }
-
-export default RefetchProvider

@@ -1,7 +1,5 @@
-import React from 'react'
+import * as React from 'react'
 
-import RefetchContext from './useRefetch.context'
+import { RefetchContext } from './useRefetch.context'
 
-const useRefetch = () => React.useContext(RefetchContext)
-
-export default useRefetch
+export const useRefetch = () => React.useContext(RefetchContext)

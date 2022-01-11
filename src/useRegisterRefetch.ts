@@ -1,11 +1,11 @@
 import { ApolloQueryResult } from 'apollo-client'
-import React from 'react'
+import * as React from 'react'
 
-import useUniqID from './_internal/useUniqID'
+import { useUniqID } from './_internal/useUniqID'
 import { QuerySubscriberOptions } from './types'
-import RefetchContext from './useRefetch.context'
+import { RefetchContext } from './useRefetch.context'
 
-const useRegisterRefetch = (
+export const useRegisterRefetch = (
   category: string,
   refetch: () => Promise<ApolloQueryResult<any>>,
   options?: QuerySubscriberOptions
@@ -18,5 +18,3 @@ const useRegisterRefetch = (
     return subscribeQuery({ category, refetch, options, id })
   }, [subscribeQuery, refetch, id, options, category])
 }
-
-export default useRegisterRefetch
