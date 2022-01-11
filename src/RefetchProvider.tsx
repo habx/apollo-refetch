@@ -4,12 +4,13 @@ import * as React from 'react'
 import { QuerySubscriber } from './types'
 import RefetchContext from './useRefetch.context'
 
-type Subscriptions = {
-  [category: string]: {
+interface Subscriptions {
+  [category: string | number | symbol]: {
     [subscriptionId: string]: () => Promise<ApolloQueryResult<any>>
   }
 }
-const RefetchProvider: React.FunctionComponent<{}> = ({ children }) => {
+
+const RefetchProvider: React.FunctionComponent = ({ children }) => {
   const subscriptions = React.useRef<Subscriptions>({})
 
   const subscribeQuery = React.useCallback<QuerySubscriber>(
@@ -31,16 +32,16 @@ const RefetchProvider: React.FunctionComponent<{}> = ({ children }) => {
     subscriptions.current = {}
   }, [])
 
-  const refetch = React.useCallback((category: string) => {
+  const refetch = React.useCallback((category: keyof Subscriptions) => {
     try {
       return Promise.all(
-        Object.values(
-          subscriptions.current[category]
-        ).map((subscriptonRefetch) => subscriptonRefetch())
+        Object.values(subscriptions.current[category]).map(
+          (subscriptonRefetch) => subscriptonRefetch()
+        )
       )
     } catch (e) {
       if (process.env.NODE_ENV === 'dev') {
-        console.warn(`${category} is not registered in refetch subscriptions`) // eslint-disable-line
+        console.warn(`${category.toString()} is not registered in refetch subscriptions`) // eslint-disable-line
       }
       return new Promise((resolve) => resolve(undefined))
     }
