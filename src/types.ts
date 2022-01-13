@@ -1,12 +1,27 @@
 import { ApolloQueryResult } from 'apollo-client'
 
-export type QuerySubscriber = (params: {
-  id: number
-  category: string
-  refetch: () => Promise<ApolloQueryResult<any>>
-  options?: QuerySubscriberOptions
-}) => () => void
+export interface QuerySubscriber {
+  (params: {
+    id: number
+    category: string
+    refetch: () => Promise<ApolloQueryResult<any>>
+    options?: QuerySubscriberOptions
+  }): () => void
+}
 
 export interface QuerySubscriberOptions {
   skip?: boolean
+}
+
+export interface RefetchContextValue {
+  refetch: (category: keyof Subscriptions) => Promise<any>
+  refetchAll: () => Promise<any>
+  reset: () => void
+  subscribeQuery: QuerySubscriber
+}
+
+export interface Subscriptions {
+  [category: string | number | symbol]: {
+    [id: string]: () => Promise<ApolloQueryResult<any>>
+  }
 }

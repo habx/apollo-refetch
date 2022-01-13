@@ -1,58 +1,52 @@
-import { ApolloQueryResult } from 'apollo-client'
 import * as React from 'react'
 
-import { QuerySubscriber } from './types'
+import { RefetchContextValue, Subscriptions } from './types'
 import { RefetchContext } from './useRefetch.context'
-
-interface Subscriptions {
-  [category: string | number | symbol]: {
-    [subscriptionId: string]: () => Promise<ApolloQueryResult<any>>
-  }
-}
 
 export const RefetchProvider: React.FunctionComponent = ({ children }) => {
   const subscriptions = React.useRef<Subscriptions>({})
 
-  const subscribeQuery = React.useCallback<QuerySubscriber>(
-    ({ id, category, refetch, options }) => {
-      if (!subscriptions.current[category]) {
-        subscriptions.current[category] = {}
-      }
+  const subscribeQuery: RefetchContextValue['subscribeQuery'] =
+    React.useCallback(({ id, category, refetch, options }) => {
+      subscriptions.current[category] ??= {}
 
       if (!options?.skip) {
         subscriptions.current[category][id] = refetch
       }
 
       return () => delete subscriptions.current[category][id]
+    }, [])
+
+  const reset: RefetchContextValue['reset'] = React.useCallback(() => {
+    subscriptions.current = {}
+  }, [])
+
+  const refetch: RefetchContextValue['refetch'] = React.useCallback(
+    (category) => {
+      if (category in subscriptions.current) {
+        return Promise.all(
+          Object.values(subscriptions.current[category]).map(
+            (subscriptonRefetch) => subscriptonRefetch()
+          )
+        )
+      }
+
+      if (process.env.NODE_ENV === 'dev') {
+        // eslint-disable-next-line
+        console.warn(`${category.toString()} is not registered in refetch subscriptions`)
+      }
+
+      return Promise.resolve([])
     },
     []
   )
 
-  const reset = React.useCallback(() => {
-    subscriptions.current = {}
-  }, [])
-
-  const refetch = React.useCallback((category: keyof Subscriptions) => {
-    try {
-      return Promise.all(
-        Object.values(subscriptions.current[category]).map(
-          (subscriptonRefetch) => subscriptonRefetch()
-        )
-      )
-    } catch (e) {
-      if (process.env.NODE_ENV === 'dev') {
-        console.warn(`${category.toString()} is not registered in refetch subscriptions`) // eslint-disable-line
-      }
-      return new Promise((resolve) => resolve(undefined))
-    }
-  }, [])
-
-  const refetchAll = React.useCallback(
+  const refetchAll: RefetchContextValue['refetchAll'] = React.useCallback(
     () =>
       Promise.all(
-        Object.values(subscriptions.current).flatMap((topicSubscriptions) =>
-          Object.values(topicSubscriptions).map((subscriptionRefetch) =>
-            (subscriptionRefetch as () => Promise<ApolloQueryResult<any>>)()
+        Object.values(subscriptions.current).flatMap((categorySubscriptions) =>
+          Object.values(categorySubscriptions).map((subscriptionRefetch) =>
+            subscriptionRefetch()
           )
         )
       ),
