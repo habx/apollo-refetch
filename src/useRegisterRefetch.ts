@@ -14,7 +14,8 @@ export const useRegisterRefetch = (
 
   const id = useUniqID()
 
-  React.useEffect(() => {
-    return subscribeQuery({ category, refetch, options, id })
-  }, [subscribeQuery, refetch, id, options, category])
+  React.useEffect(
+    () => subscribeQuery({ category, refetch, options, id }),
+    [subscribeQuery, refetch, id, options, category]
+  )
 }
