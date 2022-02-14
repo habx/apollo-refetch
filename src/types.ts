@@ -3,7 +3,7 @@ import { ApolloQueryResult } from 'apollo-client'
 export interface QuerySubscriber {
   (params: {
     id: number
-    category: string
+    category: keyof Subscriptions
     refetch: () => Promise<ApolloQueryResult<any>>
     options?: QuerySubscriberOptions
   }): () => void
