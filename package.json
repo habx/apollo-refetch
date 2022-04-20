@@ -42,17 +42,18 @@
     ]
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "@apollo/client": "^3.5.10",
+    "react": "^18.0.0"
   },
   "devDependencies": {
-    "@habx/config-ci-front": "^0.19.0",
+    "@apollo/client": "^3.5.10",
+    "@habx/config-ci-front": "^2.0.0",
     "@habx/eslint-config-client": "^6.6.0",
-    "@types/react": "^17.0.44",
-    "apollo-client": "^2.6.10",
+    "@types/react": "^18.0.5",
     "bili": "^5.0.5",
     "husky": "^4.3.8",
     "lint-staged": "^12.3.8",
-    "react": "^17.0.2",
+    "react": "^18.0.0",
     "rimraf": "^3.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
     "typescript": "^4.6.3"
