@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client'
+import { ApolloQueryResult } from '@apollo/client'
 
 export interface QuerySubscriber {
   (params: {

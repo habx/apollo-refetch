@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client'
+import { ApolloQueryResult } from '@apollo/client'
 import * as React from 'react'
 
 import { useUniqID } from './_internal/useUniqID'

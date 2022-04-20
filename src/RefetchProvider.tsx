@@ -3,7 +3,9 @@ import * as React from 'react'
 import { RefetchContextValue, Subscriptions } from './types'
 import { RefetchContext } from './useRefetch.context'
 
-export const RefetchProvider: React.FunctionComponent = ({ children }) => {
+export const RefetchProvider: React.FunctionComponent<
+  React.PropsWithChildren<{}>
+> = ({ children }) => {
   const subscriptions = React.useRef<Subscriptions>({})
 
   const subscribeQuery: RefetchContextValue['subscribeQuery'] =
