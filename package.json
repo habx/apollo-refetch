@@ -48,7 +48,7 @@
   "devDependencies": {
     "@apollo/client": "^3.6.2",
     "@habx/config-ci-front": "^2.5.0",
-    "@habx/eslint-config-client": "^6.9.0",
+    "@habx/eslint-config-client": "^6.9.2",
     "@types/react": "^18.0.9",
     "bili": "^5.0.5",
     "eslint": "^8.18.0",
