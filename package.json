@@ -53,7 +53,7 @@
     "@habx/eslint-config-client": "^6.9.2",
     "@types/react": "^18.0.21",
     "bili": "^5.0.5",
-    "eslint": "^8.23.1",
+    "eslint": "^8.24.0",
     "husky": "^4.3.8",
     "lint-staged": "^12.5.0",
     "react": "^18.2.0",
