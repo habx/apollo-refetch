@@ -51,7 +51,7 @@
     "@apollo/client": "^3.7.1",
     "@habx/config-ci-front": "^3.7.0",
     "@habx/eslint-config-client": "^6.10.0",
-    "@types/react": "^18.0.23",
+    "@types/react": "^18.0.24",
     "bili": "^5.0.5",
     "eslint": "^8.26.0",
     "husky": "^4.3.8",
